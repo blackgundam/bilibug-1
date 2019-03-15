@@ -65,7 +65,7 @@ def send_mail(to,sub,context):
        sub, 
        'rt',
        html =context)
-return
+    return
 
 def convertToHtml(result,title):
     #将数据转换为html的table
