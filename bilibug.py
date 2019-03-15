@@ -1,26 +1,37 @@
 #!/usr/bin/env python
 # coding: utf-8
 
+# In[42]:
+
+
 import requests
-import BeautifulSoup
+from bs4 import BeautifulSoup
 import datetime
 import time
-import urllib2
+import urllib.request
 import re
 import pandas as pd
 import smtplib  
 from email.mime.text import MIMEText  
 from email.mime.multipart import MIMEMultipart
 
+
+# In[43]:
+
+
 def getavlist(urlpage):
     #从静态网页获得视频av号列表
-    page=urllib2.urlopen(urlpage)
+    page=urllib.request.urlopen(urlpage)
     soup=BeautifulSoup(page,'html.parser')
     txtcont=soup.find('div',{'class':'txtcont'})
     txtcont=str(txtcont)
     av_list=re.findall('<p.*?(\d+).*?</p>',txtcont,re.S)
     av=av_list[::-1]
     return av
+
+
+# In[44]:
+
 
 def getdaystr():
     #获得时间格式
@@ -30,6 +41,10 @@ def getdaystr():
     yesterdaystr=yesterday.strftime('%Y-%m-%d')
     nowstr=today.strftime('%Y-%m-%d %H:%M:%S')
     return yesterdaystr,nowstr
+
+
+# In[45]:
+
 
 def getdata(av_list):
     #获得数据
@@ -56,6 +71,10 @@ def getdata(av_list):
         L2=L2+t2
     return L1,L2
 
+
+# In[46]:
+
+
 def send_mail(to,sub,context):
     #to_list：收件人；sub：主题；content：邮件内容
     mail_host="smtp.qq.com"#设置服务器
@@ -73,6 +92,10 @@ def send_mail(to,sub,context):
     s.sendmail(me,to,msg.as_string())#发送邮件
     s.close()
     return
+
+
+# In[47]:
+
 
 def convertToHtml(result,title):
     #将数据转换为html的table
@@ -98,6 +121,10 @@ def convertToHtml(result,title):
 """
     return html
 
+
+# In[48]:
+
+
 def bilibug(urlpage):
     [yesterdaystr,nowstr]=getdaystr()
     av_list=getavlist(urlpage)
@@ -112,7 +139,17 @@ def bilibug(urlpage):
     return
 
 
+# In[49]:
+
+
 if __name__ == '__main__':
     urlpage='http://blackgundam.lofter.com/post/2f0990_12dd602bb'
     bilibug(urlpage)
    
+
+
+# In[ ]:
+
+
+
+
