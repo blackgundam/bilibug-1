@@ -9,6 +9,7 @@ import urllib.request
 import re
 import pandas as pd
 import mail
+from email.mime.text import MIMEText 
 
 
 def getavlist(urlpage):
