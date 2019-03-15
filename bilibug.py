@@ -60,11 +60,7 @@ def getdata(av_list):
 
 
 def send_mail(to,sub,context):
-      mail.send_mail('blackgundamwyr@gmail.com',
-       'me<black_gundam@163.com',
-       sub, 
-       'rt',
-       html =context)
+    mail.send_mail('blackgundamwyr@gmail.com','me<black_gundam@163.com',sub, 'rt',html =context)
     return
 
 def convertToHtml(result,title):
