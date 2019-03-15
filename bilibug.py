@@ -8,7 +8,7 @@ import time
 import urllib.request
 import re
 import pandas as pd
-from google.appengine.api import mail
+import mail
 
 
 def getavlist(urlpage):
@@ -60,7 +60,10 @@ def getdata(av_list):
 
 
 def send_mail(to,sub,context):
-    mail.send_mail('blackgundamwyr@gmail.com','me<black_gundam@163.com',sub, 'rt',html =context)
+    mail.send_mail(sender='blackgundamwyr@gmail.com',
+                   to="me<black_gundam@163.com>",
+                   subject=sub,
+                   body=context)
     return
 
 def convertToHtml(result,title):
