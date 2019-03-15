@@ -8,7 +8,7 @@ import time
 import urllib.request
 import re
 import pandas as pd
-import mail
+from google.appengine.api import mail
 from email.mime.text import MIMEText 
 
 
