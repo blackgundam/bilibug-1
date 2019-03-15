@@ -1,6 +1,6 @@
 application: bilibug-1
 version: 1.1
-runtime: python
+runtime: python37
 api_version: 1
 handlers:
 - url: /.* 
