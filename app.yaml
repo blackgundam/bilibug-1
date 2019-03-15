@@ -1,5 +1,5 @@
-application: bilibug-3
-version: 1.1
+application: bilibug-1
+version: 1.2
 runtime: python37
 api_version: 1
 handlers:

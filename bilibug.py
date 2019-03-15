@@ -1,9 +1,6 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[42]:
-
-
 import requests
 from bs4 import BeautifulSoup
 import datetime
@@ -11,12 +8,7 @@ import time
 import urllib.request
 import re
 import pandas as pd
-import smtplib  
-from email.mime.text import MIMEText  
-from email.mime.multipart import MIMEMultipart
-
-
-# In[43]:
+from google.appengine.api import mail
 
 
 def getavlist(urlpage):
@@ -30,9 +22,6 @@ def getavlist(urlpage):
     return av
 
 
-# In[44]:
-
-
 def getdaystr():
     #获得时间格式
     today=datetime.datetime.now()
@@ -42,8 +31,6 @@ def getdaystr():
     nowstr=today.strftime('%Y-%m-%d %H:%M:%S')
     return yesterdaystr,nowstr
 
-
-# In[45]:
 
 
 def getdata(av_list):
@@ -72,30 +59,13 @@ def getdata(av_list):
     return L1,L2
 
 
-# In[46]:
-
-
 def send_mail(to,sub,context):
-    #to_list：收件人；sub：主题；content：邮件内容
-    mail_host="smtp.qq.com"#设置服务器
-    mail_user="369235086@qq.com"#用户名
-    mail_pass="qmWyr753357"#口令 
-    me="CineX_data"+"<"+mail_user+">"#这里的“服务器”可以任意设置，收到信后，将按照设置显示
-    msg = MIMEMultipart()#给定msg类型
-    msg['Subject'] = sub#邮件主题
-    msg['From'] = me
-    msg['To'] = "hello<"+to+">"
-    msg.attach(context)
-    s = smtplib.SMTP()
-    s.connect(mail_host)#连接smtp服务器
-    s.login(mail_user,mail_pass)#登陆服务器
-    s.sendmail(me,to,msg.as_string())#发送邮件
-    s.close()
+      mail.send_mail('blackgundamwyr@gmail.com',
+       'me<black_gundam@163.com',
+       sub, 
+       'rt',
+       html =context)
     return
-
-
-# In[47]:
-
 
 def convertToHtml(result,title):
     #将数据转换为html的table
@@ -121,10 +91,6 @@ def convertToHtml(result,title):
 """
     return html
 
-
-# In[48]:
-
-
 def bilibug(urlpage):
     [yesterdaystr,nowstr]=getdaystr()
     av_list=getavlist(urlpage)
@@ -139,17 +105,9 @@ def bilibug(urlpage):
     return
 
 
-# In[49]:
-
-
 if __name__ == '__main__':
     urlpage='http://blackgundam.lofter.com/post/2f0990_12dd602bb'
     bilibug(urlpage)
    
-
-
-# In[ ]:
-
-
 
 
