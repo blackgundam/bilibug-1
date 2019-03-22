@@ -1,6 +1,15 @@
 from google.appengine.api import mail
-mail.send_mail('blackgundamwyr@gmail.com',
-       'wyr629@hotmail.com',
-       u'发现红包', #中文必须写成unicode，不然会变成乱码
-       'rt',
-       html = u'<a href="http://bbs.kidfanschannel.net/discuz/plugin.php?identifier=get_money&module=money&action=money_get&hid=2">领取红包</a>')
+
+mail.send_mail(sender="blackgundamwyr@gmail.com",
+                   to="Albert Johnson <wyr629@hotmail.com>",
+                   subject="Your account has been approved",
+                   body="""Dear Albert:
+
+Your example.com account has been approved.  You can now visit
+http://www.example.com/ and sign in using your Google Account to
+access new features.
+
+Please let us know if you have any questions.
+
+The example.com Team
+""")
