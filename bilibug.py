@@ -1,20 +1,26 @@
 #!/usr/bin/env python
 # coding: utf-8
 
+# In[1]:
+
+
 import requests
 from bs4 import BeautifulSoup
 import datetime
 import time
-import urllib.request
+import urllib2
 import re
 import pandas as pd
+import smtplib  
+from email.mime.text import MIMEText  
+from email.mime.multipart import MIMEMultipart
 from google.appengine.api import mail
-from email.mime.text import MIMEText 
+
 
 
 def getavlist(urlpage):
     #从静态网页获得视频av号列表
-    page=urllib.request.urlopen(urlpage)
+    page=urllib2.urlopen(urlpage)
     soup=BeautifulSoup(page,'html.parser')
     txtcont=soup.find('div',{'class':'txtcont'})
     txtcont=str(txtcont)
@@ -31,7 +37,6 @@ def getdaystr():
     yesterdaystr=yesterday.strftime('%Y-%m-%d')
     nowstr=today.strftime('%Y-%m-%d %H:%M:%S')
     return yesterdaystr,nowstr
-
 
 
 def getdata(av_list):
@@ -67,6 +72,7 @@ def send_mail(to,sub,context):
                    body=context)
     return
 
+
 def convertToHtml(result,title):
     #将数据转换为html的table
     #result是list[list1,list2]这样的结构
@@ -91,6 +97,7 @@ def convertToHtml(result,title):
 """
     return html
 
+
 def bilibug(urlpage):
     [yesterdaystr,nowstr]=getdaystr()
     av_list=getavlist(urlpage)
@@ -108,6 +115,3 @@ def bilibug(urlpage):
 if __name__ == '__main__':
     urlpage='http://blackgundam.lofter.com/post/2f0990_12dd602bb'
     bilibug(urlpage)
-   
-
-
